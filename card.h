@@ -5,10 +5,16 @@
 #include <vector>
 
 class Card {
-   public:
-    enum Suit { HEARTS, DIAMONDS, CLUBS, SPADES };
-    enum Rank { ACE = 1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING };
-    enum Color { RED, BLACK };
+public:
+    enum Suit {
+        HEARTS, DIAMONDS, CLUBS, SPADES
+    };
+    enum Rank {
+        ACE = 1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING
+    };
+    enum Color {
+        RED, BLACK
+    };
 
     Card(Suit s, Rank r) : suit(s), rank(r) { color = static_cast<Color>(suit / 2); }
 
@@ -26,18 +32,18 @@ class Card {
 
     bool operator==(const Card &other) const { return suit == other.suit && rank == other.rank; }
 
-   private:
+private:
     Rank rank;
     Suit suit;
     Color color;
 };
 
 class Player {
-   private:
+private:
     std::string name;
     std::vector<Card> hand;
 
-   public:
+public:
     explicit Player(std::string playerName) { name = std::move(playerName); }
 
     void drawCard(Card card) { hand.push_back(card); }
@@ -53,7 +59,7 @@ class Player {
 
     void print() {
         std::cout << name << "'s hand:" << std::endl;
-        for (auto i : hand) {
+        for (auto i: hand) {
             i.print();
         }
     }
@@ -62,10 +68,10 @@ class Player {
 };
 
 class Deck {
-   private:
+private:
     std::vector<Card> cards;
 
-   public:
+public:
     Deck() {
         for (int s = Card::HEARTS; s <= Card::SPADES; s++) {
             for (int r = Card::ACE; r <= Card::KING; r++) {
@@ -92,23 +98,25 @@ class Deck {
 };
 
 class Table {
-   private:
+private:
     std::vector<Card> cards;
 
-   public:
+public:
     void addCard(Card card) { cards.push_back(card); }
 
     void printTable() {
         std::cout << "Table:" << std::endl;
-        for (auto card : cards) {
+        for (auto card: cards) {
             card.print();
         }
     }
 };
 
 class Game {
-   public:
-    enum Type { POKER, BLACKJACK, GO_FISH, FOOL, GAME_TYPE_COUNT };
+public:
+    enum Type {
+        POKER, BLACKJACK, GO_FISH, FOOL, GAME_TYPE_COUNT
+    };
 
     explicit Game(Type t) : gameType(t) {}
 
@@ -129,7 +137,7 @@ class Game {
         }
     }
 
-   private:
+private:
     Type gameType;
     Deck deck;
     std::vector<Player> players;
